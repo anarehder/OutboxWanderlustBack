@@ -1,7 +1,10 @@
 import { db } from "../database/database.connection.js";
 
-export function getTicketsListDB() {
-    return db.query(`SELECT * FROM tickets;`);
+export function getTicketsListDB(limit) {
+    if  (limit) {
+    return db.query(`SELECT * FROM tickets WHERE price<$1;`, [limit]);
+    }
+    return db.query(`SELECT * FROM tickets`);
 }
 
 export function getTicketsByCityDB(city) {

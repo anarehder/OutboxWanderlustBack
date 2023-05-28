@@ -1,8 +1,10 @@
 import { getTicketsByCityDB, getTicketsByIdDB, getTicketsListDB } from "../repositories/tickets.repository.js";
 
 export async function getTicketsList(req,res){
+    const limit = req.query.limit;
+    console.log(limit)
     try{
-        const { rows: tickets } = await getTicketsListDB();
+        const { rows: tickets } = await getTicketsListDB(limit);
         res.send(tickets);
     } catch (err) {
         res.status(500).send(err.message);
