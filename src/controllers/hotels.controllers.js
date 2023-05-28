@@ -5,7 +5,7 @@ export async function getHotelsList(req,res){
         const { rows: hotels } = await getHotelsListDB();
         res.send(hotels);
     } catch (err) {
-        res.stats(500).send(err.message);
+        res.status(500).send(err.message);
     }
 }
 
@@ -15,7 +15,7 @@ export async function getHotelsByCity(req, res) {
         const { rows: hotels } = await getHotelsByCityDB(city);
         res.send(hotels);
     } catch (err) {
-        res.stats(500).send(err.message);
+        res.status(500).send(err.message);
     }
 }
 
@@ -25,6 +25,6 @@ export async function getHotelsById(req, res) {
         const { rows: hotels } = await getHotelsByIdDB(id);
         res.send(hotels);
     } catch (err) {
-        res.stats(500).send(err.message);
+        res.status(500).send(err.message);
     }
 }

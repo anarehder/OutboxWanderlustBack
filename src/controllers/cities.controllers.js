@@ -5,6 +5,6 @@ export async function getCitiesList(req,res){
         const { rows: cities } = await getCitiesListDB();
         res.send(cities);
     } catch (err) {
-        res.stats(500).send(err.message);
+        res.status(500).send(err.message);
     }
 }
