@@ -11,8 +11,10 @@ export async function getHotelsList(req,res){
 
 export async function getHotelsByCity(req, res) {
     const { city } = req.params;
+    const min = req.query.min;
+    const max = req.query.max;
     try {
-        const { rows: hotels } = await getHotelsByCityDB(city);
+        const { rows: hotels } = await getHotelsByCityDB(city, min, max);
         const { rows: prices } = await getMinMaxHotelsDB(city);
         const resposnse = [hotels, prices];
         res.send(resposnse);
