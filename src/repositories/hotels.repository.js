@@ -30,3 +30,7 @@ export function getHotelAmenitiesDB(id) {
                     JOIN amenities ON hotelamenities."amenitiesID" = amenities.id
                     WHERE hotels.id = $1;`, [id]);
 }
+
+export function getHotelPicturesDB(id) {
+    return db.query(`SELECT * FROM "imagesHotel" WHERE "hotelID"= $1;`, [id]);
+}
