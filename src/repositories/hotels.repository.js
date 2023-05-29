@@ -5,7 +5,11 @@ export function getHotelsListDB() {
 }
 
 export function getHotelsByCityDB(city) {
-    return db.query(`SELECT * FROM hotels WHERE "cityID"=$1;`, [city]);
+    //return db.query(`SELECT * FROM hotels WHERE "cityID"=$1;`, [city]);
+    return db.query (`SELECT hotels.*, destiny.name AS destiny
+                        FROM hotels
+                        JOIN destiny ON destiny.id = hotels."cityID"
+                        WHERE "cityID"=$1;`, [city]);
 }
 
 export function getHotelsByIdDB(id) {
