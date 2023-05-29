@@ -12,6 +12,10 @@ export function getHotelsByCityDB(city) {
                         WHERE "cityID"=$1;`, [city]);
 }
 
+export function getMinMaxHotelsDB(city){
+    return db.query(`SELECT MAX(price), MIN(price) FROM hotels WHERE "cityID"= $1;`, [city]);
+}
+
 export function getHotelsByIdDB(id) {
     return db.query(`SELECT * FROM hotels WHERE id=$1;`, [id]);
 }

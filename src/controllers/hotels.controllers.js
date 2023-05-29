@@ -1,4 +1,4 @@
-import { getHotelsByCityDB, getHotelsByIdDB, getHotelsListDB } from "../repositories/hotels.repository.js";
+import { getHotelsByCityDB, getHotelsByIdDB, getHotelsListDB, getMinMaxHotelsDB } from "../repositories/hotels.repository.js";
 
 export async function getHotelsList(req,res){
     try{
@@ -13,7 +13,9 @@ export async function getHotelsByCity(req, res) {
     const { city } = req.params;
     try {
         const { rows: hotels } = await getHotelsByCityDB(city);
-        res.send(hotels);
+        const { rows: prices } = await getMinMaxHotelsDB(city);
+        const resposnse = [hotels, prices];
+        res.send(resposnse);
     } catch (err) {
         res.status(500).send(err.message);
     }
