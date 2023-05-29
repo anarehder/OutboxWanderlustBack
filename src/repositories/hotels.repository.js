@@ -41,3 +41,12 @@ export function getHotelAmenitiesDB(id) {
 export function getHotelPicturesDB(id) {
     return db.query(`SELECT * FROM "imagesHotel" WHERE "hotelID"= $1;`, [id]);
 }
+
+export function addNewHotelDB(name, price, cityID, guests){
+    return db.query(`INSERT INTO hotels (name, price, "cityID", guests)
+                    VALUES ($1, $2, $3, $4);`, [name, price, cityID, guests]);
+}
+
+export function createHotelPicturesDB(url, hotelID) {
+    return db.query(`INSERT INTO "imagesHotel" VALUES ($1, $2);`, [url, hotelID]);
+}

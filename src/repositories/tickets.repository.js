@@ -44,3 +44,9 @@ export function getTicketsByIdDB(id) {
                         JOIN class ON class.id = tickets."classID"
                         WHERE tickets.id=$1`, [id]);
 }
+
+
+export function addNewTicketDB(originID, destinyID, airlineID, classID, price, depDate1, arrDate1, depDate2, arrDate2){
+    return db.query(`INSERT INTO tickets ("originID","destinyID","airlineID","classID",price,"depDate1","arrDate1", "depDate2","arrDate2")
+                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`, [originID, destinyID, airlineID, classID, price, depDate1, arrDate1, depDate2, arrDate2]);
+}

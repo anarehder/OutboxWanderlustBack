@@ -1,4 +1,4 @@
-import { getMinMaxTicketsDB, getTicketsByCityDB, getTicketsByIdDB, getTicketsListDB } from "../repositories/tickets.repository.js";
+import { addNewTicketDB, getMinMaxTicketsDB, getTicketsByCityDB, getTicketsByIdDB, getTicketsListDB } from "../repositories/tickets.repository.js";
 
 export async function getTicketsList(req,res){
     const min = req.query.min;
@@ -31,6 +31,16 @@ export async function getTicketsById(req, res) {
     try {
         const { rows: tickets } = await getTicketsByIdDB(id);
         res.send(tickets);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+}
+
+export async function addNewTicket(req,res){
+    const {originID, destinyID, airlineID, classID, price, depDate1, arrDate1, depDate2, arrDate2} = req.body;
+    try{
+        await addNewTicketDB(originID, destinyID, airlineID, classID, price, depDate1, arrDate1, depDate2, arrDate2);
+        res.status(201).send("Criado!");
     } catch (err) {
         res.status(500).send(err.message);
     }
