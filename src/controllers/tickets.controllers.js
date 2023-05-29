@@ -1,4 +1,4 @@
-import { getTicketsByCityDB, getTicketsByIdDB, getTicketsListDB } from "../repositories/tickets.repository.js";
+import { getMinMaxTicketsDB, getTicketsByCityDB, getTicketsByIdDB, getTicketsListDB } from "../repositories/tickets.repository.js";
 
 export async function getTicketsList(req,res){
     const limit = req.query.limit;
@@ -15,7 +15,10 @@ export async function getTicketsByCity(req, res) {
     const { city } = req.params;
     try {
         const { rows: tickets } = await getTicketsByCityDB(city);
-        res.send(tickets);
+        const { rows: prices } = await getMinMaxTicketsDB(city);
+        console.log(prices[0])
+        const resposnse = [...tickets, prices];
+        res.send(resposnse);
     } catch (err) {
         res.status(500).send(err.message);
     }
