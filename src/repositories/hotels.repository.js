@@ -22,3 +22,11 @@ export function getHotelsByIdDB(id) {
                         JOIN destiny ON destiny.id = hotels."cityID"
                         WHERE hotels.id=$1;`, [id]);
 }
+
+export function getHotelAmenitiesDB(id) {
+    return db.query(`SELECT hotels.name, amenities.name AS amenities
+                    FROM hotels
+                    JOIN hotelamenities ON hotelamenities."hotelID" = hotels.id
+                    JOIN amenities ON hotelamenities."amenitiesID" = amenities.id
+                    WHERE hotels.id = $1;`, [id]);
+}
