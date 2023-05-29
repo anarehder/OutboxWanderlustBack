@@ -17,5 +17,8 @@ export function getMinMaxHotelsDB(city){
 }
 
 export function getHotelsByIdDB(id) {
-    return db.query(`SELECT * FROM hotels WHERE id=$1;`, [id]);
+    return db.query(`SELECT hotels.*, destiny.name AS destiny
+                        FROM hotels
+                        JOIN destiny ON destiny.id = hotels."cityID"
+                        WHERE hotels.id=$1;`, [id]);
 }
