@@ -16,8 +16,7 @@ export async function getTicketsByCity(req, res) {
     try {
         const { rows: tickets } = await getTicketsByCityDB(city);
         const { rows: prices } = await getMinMaxTicketsDB(city);
-        console.log(prices[0])
-        const resposnse = [...tickets, prices];
+        const resposnse = [tickets, prices];
         res.send(resposnse);
     } catch (err) {
         res.status(500).send(err.message);
