@@ -24,5 +24,13 @@ export function getMinMaxTicketsDB(city){
 }
 
 export function getTicketsByIdDB(id) {
-    return db.query(`SELECT * FROM tickets WHERE id=$1;`, [id]);
+    //return db.query(`SELECT * FROM tickets WHERE id=$1;`, [id]);
+    return db.query(`SELECT tickets.*, origin.name AS origin, destiny.name AS destiny,
+                        airline.name AS airline, class.name AS class
+                        FROM tickets
+                        JOIN origin ON origin.id = tickets."originID"
+                        JOIN destiny ON destiny.id = tickets."destinyID"
+                        JOIN airline ON airline.id = tickets."airlineID"
+                        JOIN class ON class.id = tickets."classID"
+                        WHERE tickets.id=$1`, [id]);
 }
